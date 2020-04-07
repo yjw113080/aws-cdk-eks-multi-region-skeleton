@@ -52,8 +52,7 @@ export function deployToEKSspec (scope: cdk.Construct, region: string, cluster: 
         environment: {
             buildImage: codebuild.LinuxBuildImage.fromAsset(scope, `custom-image-for-eks-${region}`, {
                 directory: './utils/buildimage'
-            }),
-            privileged: true
+            })
         },
         environmentVariables: { 
             'REGION': { value:  region },
@@ -71,8 +70,8 @@ export function deployToEKSspec (scope: cdk.Construct, region: string, cluster: 
               },
               build: {
                 commands: [
-                    `sed -i 's@CONTAINER_IMAGE@'"$ECR_REPO_URI:$TAG"'@' hello-py.yaml`,
-                    'kubectl apply -f hello-py.yaml'
+                    `sed -i 's@CONTAINER_IMAGE@'"$ECR_REPO_URI:$TAG"'@' app-deployment.yaml`,
+                    'kubectl apply -f app-deployment.yaml'
                 ]
               }
             }})
@@ -121,7 +120,6 @@ export function deployTo2ndClusterspec (scope: cdk.Construct, region: string, ap
             buildImage: codebuild.LinuxBuildImage.fromAsset(scope, `custom-image-for-eks-${region}`, {
                 directory: './utils/buildimage'
             }),
-            privileged: true
         },
         environmentVariables: { 
             'REGION': { value:  region },
@@ -144,11 +142,17 @@ export function deployTo2ndClusterspec (scope: cdk.Construct, region: string, ap
                     `export AWS_SECRET_ACCESS_KEY="$(echo \${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"`,
                     `export AWS_SESSION_TOKEN="$(echo \${CREDENTIALS} | jq -r '.Credentials.SessionToken')"`,
                     `export AWS_EXPIRATION=$(echo \${CREDENTIALS} | jq -r '.Credentials.Expiration')`,
-                    `sed -i 's@CONTAINER_IMAGE@'"$ECR_REPO_URI:$TAG"'@' hello-py.yaml`,
-                    'kubectl apply -f hello-py.yaml'
+                    `sed -i 's@CONTAINER_IMAGE@'"$ECR_REPO_URI:$TAG"'@' app-deployment.yaml`,
+                    'kubectl apply -f app-deployment.yaml'
                 ]
               }
             }})
     });
+
+    deployBuildSpec.addToRolePolicy(new iam.PolicyStatement({
+        actions: ['eks:DescribeCluster'],
+        resources: [`*`],
+      }));
+      
     return deployBuildSpec;
 }
