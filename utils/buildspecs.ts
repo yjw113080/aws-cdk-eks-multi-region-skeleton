@@ -21,7 +21,6 @@ export function codeToECRspec (scope: cdk.Construct, apprepo: string) :PipelineP
                 pre_build: {
                     commands: [
                         'env', `$(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)`, 
-                        // `COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)`,
                         'IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION'
                     ]
                 },

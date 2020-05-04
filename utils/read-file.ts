@@ -10,10 +10,7 @@ export function readYamlFromDir(dir: string, cluster: eks.Cluster) {
         if (file.split('.').pop()=='yaml') {
           fs.readFile(dir+file, 'utf8', (err, data) => {
             if (data!=undefined) {
-              // data.split('{{region_name}}').join(region);
-              // data.split('{{cluster_name}}').join(cluster.clusterName);
               let i = 0;
-    
               yaml.loadAll(data).forEach((item) => {
                 cluster.addResource(file.substr(0,file.length-5)+i, item);
                 i++;
