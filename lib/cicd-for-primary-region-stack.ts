@@ -6,10 +6,12 @@ import codepipeline = require('@aws-cdk/aws-codepipeline');
 import pipelineAction = require('@aws-cdk/aws-codepipeline-actions');
 import * as iam from '@aws-cdk/aws-iam';
 import { codeToECRspec, deployToEKSspec, deployTo2ndClusterspec } from '../utils/buildspecs';
+import { EksProps } from './cluster-stack';
+
 
 export class CicdForPrimaryRegionStack extends cdk.Stack {
 
-    constructor(scope: cdk.Construct, id: string, props: cdk.StackProps) {
+    constructor(scope: cdk.Construct, id: string, props: EksProps) {
         super(scope, id, props);
 
     }
