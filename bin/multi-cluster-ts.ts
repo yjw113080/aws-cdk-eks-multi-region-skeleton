@@ -3,7 +3,7 @@ import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import { ClusterStack } from '../lib/cluster-stack';
 import { ContainerStack } from '../lib/container-stack';
-import { CicdForPrimaryRegionStack } from '../lib/cicd-for-primary-region-stack';
+import { CicdStack } from '../lib/cicd-stack';
 
 const app = new cdk.App();
 
