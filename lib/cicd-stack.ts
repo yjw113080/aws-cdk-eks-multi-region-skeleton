@@ -4,12 +4,12 @@ import ecr = require('@aws-cdk/aws-ecr');
 import codepipeline = require('@aws-cdk/aws-codepipeline');
 import pipelineAction = require('@aws-cdk/aws-codepipeline-actions');
 import { codeToECRspec, deployToEKSspec } from '../utils/buildspecs';
-import { CicdProps } from './cluster-stack';
 
 
 export class CicdStack extends cdk.Stack {
 
-    constructor(scope: cdk.Construct, id: string, props: CicdProps) {
+    constructor(scope: cdk.Construct, id: string, props: cdk.StackProps) {
+
         super(scope, id, props);
 
 
