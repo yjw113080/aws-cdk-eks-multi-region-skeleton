@@ -5,9 +5,11 @@ import * as ec2 from '@aws-cdk/aws-ec2';
 import { PhysicalName } from '@aws-cdk/core';
 
 export class ClusterStack extends cdk.Stack {
+
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    const primaryRegion = 'ap-northeast-1';
 
   }
 }

@@ -9,10 +9,12 @@ import { codeToECRspec, deployToEKSspec } from '../utils/buildspecs';
 export class CicdStack extends cdk.Stack {
 
     constructor(scope: cdk.Construct, id: string, props: cdk.StackProps) {
-
         super(scope, id, props);
 
+        const primaryRegion = 'ap-northeast-1';
+        const secondaryRegion = 'us-east-1';
 
     }
 }
+
 
